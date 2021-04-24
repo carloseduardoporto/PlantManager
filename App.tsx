@@ -10,6 +10,7 @@ import Apploading from "expo-app-loading";
 // import { Welcome } from "./src/pages/Welcome";
 // import { UserIdentification } from "./src/pages/UserIdentification";
 import Routes from "./src/routes";
+import PlantSelect from "./src/pages/PlantSelect";
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,7 @@ function App() {
     return <Apploading />;
   }
 
-  return <Routes />;
+  return <PlantSelect />;
 }
 
 export default App;

@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Apploading from "expo-app-loading";
+
+import * as Notifications from "expo-notifications";
 
 import {
   useFonts,
   Jost_400Regular,
   Jost_600SemiBold,
 } from "@expo-google-fonts/jost";
-import Apploading from "expo-app-loading";
 
-// import { Welcome } from "./src/pages/Welcome";
-// import { UserIdentification } from "./src/pages/UserIdentification";
 import Routes from "./src/routes";
-import PlantSelect from "./src/pages/PlantSelect";
+import { PlantProps } from "./src/libs/storage";
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -18,11 +18,22 @@ function App() {
     Jost_600SemiBold,
   });
 
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(
+      async (notification) => {
+        const data = notification.request.content.data.plant as PlantProps;
+        console.log(data);
+      }
+    );
+
+    return () => subscription.remove();
+  }, []);
+
   if (!fontsLoaded) {
     return <Apploading />;
   }
 
-  return <PlantSelect />;
+  return <Routes />;
 }
 
 export default App;
